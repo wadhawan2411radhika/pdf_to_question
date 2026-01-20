@@ -1,0 +1,9 @@
+langgraph
+langchain
+openai
+PyMuPDF
+pdfplumber
+fastapi
+uvicorn
+pydantic
+python-dotenv
