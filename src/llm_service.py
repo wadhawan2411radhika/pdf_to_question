@@ -3,10 +3,13 @@
 import os
 import base64
 import json
+import logging
 from typing import Dict, List, Any, Optional
 import openai
 from PIL import Image
 import io
+
+logger = logging.getLogger(__name__)
 
 
 class VisionResult:
@@ -14,7 +17,6 @@ class VisionResult:
     def __init__(self):
         self.question_text = None
         self.mcq_options = []
-        self.mathematical_content = None
         self.has_diagram = False
         self.raw_response = ""
 
@@ -33,9 +35,9 @@ class LLMService:
             api_key=self.api_key
         )
         
-        print(f"LLM SERVICE - Initialized")
+        logger.info("LLM service initialized")
     
-    def analyze_image(self, image_path: str, analysis_type: str = "comprehensive") -> VisionResult:
+    def analyze_image(self, image_path: str) -> VisionResult:
         """Analyze image and return simple results"""
         try:
             # Convert image to base64
@@ -45,14 +47,12 @@ class LLMService:
             prompt = """Analyze this image and extract:
 1. Any question text
 2. Multiple choice options (A, B, C, D, E)
-3. Mathematical formulas
-4. Whether it contains diagrams/figures
+3. Whether it contains diagrams/figures
 
 Return as JSON:
 {
     "question_text": "...",
     "mcq_options": [{"letter": "A", "text": "..."}],
-    "mathematical_content": "...",
     "has_diagram": true/false
 }"""
 
@@ -79,11 +79,11 @@ Return as JSON:
             raw_response = response.choices[0].message.content
             result = self._parse_response(raw_response)
             
-            print(f"LLM VISION - Analyzed {os.path.basename(image_path)}: question={bool(result.question_text)}, mcq={len(result.mcq_options)}")
+            logger.debug(f"Analyzed {os.path.basename(image_path)}: question={bool(result.question_text)}, mcq={len(result.mcq_options)}")
             return result
             
         except Exception as e:
-            print(f"LLM VISION ERROR - {e}")
+            logger.error(f"LLM vision analysis error: {e}")
             result = VisionResult()
             result.raw_response = f"Error: {str(e)}"
             return result
@@ -109,7 +109,7 @@ Return as JSON:
                 return base64.b64encode(buffer.getvalue()).decode('utf-8')
                 
         except Exception as e:
-            print(f"Error encoding image: {e}")
+            logger.error(f"Error encoding image: {e}")
             raise
     
     def _parse_response(self, response: str) -> VisionResult:
@@ -128,7 +128,6 @@ Return as JSON:
                 
                 result.question_text = data.get('question_text')
                 result.mcq_options = data.get('mcq_options', [])
-                result.mathematical_content = data.get('mathematical_content')
                 result.has_diagram = data.get('has_diagram', False)
             else:
                 # Simple text parsing fallback
@@ -159,10 +158,6 @@ Return as JSON:
                 letter = line[0]
                 text = line[2:].strip()
                 result.mcq_options.append({"letter": letter, "text": text})
-            
-            # Look for math content
-            if any(symbol in line for symbol in ['=', '+', '-', '×', '÷', '∑', '∫']):
-                result.mathematical_content = line
             
             # Look for diagrams
             if any(word in line.lower() for word in ['diagram', 'chart', 'graph', 'figure']):
