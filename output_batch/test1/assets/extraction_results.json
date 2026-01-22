@@ -1,0 +1,73 @@
+{
+  "pdf_path": "/Users/radhika/Desktop/Personal/Interview related content/Assignments/pdf_to_question/data/dev/test1.pdf",
+  "output_directory": "/Users/radhika/Desktop/Personal/Interview related content/Assignments/pdf_to_question/output_test/test1/assets",
+  "total_images": 3,
+  "images": [
+    {
+      "page": 5,
+      "index": 1,
+      "filename": "page5_img1.png",
+      "filepath": "/Users/radhika/Desktop/Personal/Interview related content/Assignments/pdf_to_question/output_test/test1/assets/page5_img1.png",
+      "width": 729,
+      "height": 118,
+      "bbox": [
+        0,
+        0,
+        729,
+        118
+      ],
+      "coordinates": {
+        "x0": 0,
+        "y0": 0,
+        "x1": 729,
+        "y1": 118,
+        "center_x": 364.5,
+        "center_y": 59.0
+      }
+    },
+    {
+      "page": 6,
+      "index": 1,
+      "filename": "page6_img1.png",
+      "filepath": "/Users/radhika/Desktop/Personal/Interview related content/Assignments/pdf_to_question/output_test/test1/assets/page6_img1.png",
+      "width": 763,
+      "height": 313,
+      "bbox": [
+        0,
+        0,
+        763,
+        313
+      ],
+      "coordinates": {
+        "x0": 0,
+        "y0": 0,
+        "x1": 763,
+        "y1": 313,
+        "center_x": 381.5,
+        "center_y": 156.5
+      }
+    },
+    {
+      "page": 7,
+      "index": 1,
+      "filename": "page7_img1.png",
+      "filepath": "/Users/radhika/Desktop/Personal/Interview related content/Assignments/pdf_to_question/output_test/test1/assets/page7_img1.png",
+      "width": 763,
+      "height": 313,
+      "bbox": [
+        0,
+        0,
+        763,
+        313
+      ],
+      "coordinates": {
+        "x0": 0,
+        "y0": 0,
+        "x1": 763,
+        "y1": 313,
+        "center_x": 381.5,
+        "center_y": 156.5
+      }
+    }
+  ]
+}
