@@ -1,3 +1,4 @@
+
 from typing import List
 
 class DocumentMetadata:
@@ -23,7 +24,7 @@ class Asset:
     """
     This class defines the structure for storing information about each asset (image, table, figure) associated with a question.
     """
-    asset_type: str
+    asset_type: str # either table or image
     asset_path: str
     asset_description: str | None
     bbox: dict
@@ -54,7 +55,6 @@ class Question:
     subparts: List[Subpart]
     mcq_options: List[MCQOption]
     assets: List[Asset]
-    tables: List[Asset]
 
 class ExtractionStats:
     """
