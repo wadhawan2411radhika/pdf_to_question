@@ -7,7 +7,12 @@ import os
 import json
 from typing import List, Dict, Any, Optional, Tuple
 from state import Question, Subpart, MCQOption, Asset
+from coordinate_image_mapper import extract_images_with_metadata, map_images_to_questions_for_pdf
+from output_manager import OutputManager
+import json
 
+# Import LaTeX utilities
+from latex_utils import detect_latex, render_latex
 
 class TextExtractor:
     def __init__(self, pdf_path: str):
@@ -18,7 +23,6 @@ class TextExtractor:
         self.output_dir = "output"
         
         # Import here to avoid circular imports
-        from output_manager import OutputManager
         self.output_manager = OutputManager(pdf_name=self.pdf_name)
         
     def extract(self) -> List[Question]:
@@ -26,8 +30,7 @@ class TextExtractor:
         # Load PDF and get text
         self._load_pdf()
         
-        # Extract images and tables first (for sequential linking)
-        images = self._extract_images()
+        # Extract tables for linking
         tables = self._extract_tables()
         
         # Combine all pages into one text for cross-page question extraction
@@ -42,11 +45,13 @@ class TextExtractor:
         # Extract questions from combined text
         all_questions = self._extract_questions_from_combined_text(all_text, page_boundaries)
         
-        # Link images and tables to questions sequentially
-        self._link_images_sequentially(all_questions, images)
+        # Link images and tables to questions using coordinate-based mapping
+        self._extract_and_save_images()
+        self._link_images_using_coordinate_mapper(all_questions)
         self._link_tables_sequentially(all_questions, tables)
         
         # Save results using OutputManager
+        all_questions = self._merge_results(all_questions, str(self.output_manager.images_dir / "image_question_mappings.json"))
         self._save_results(all_questions)
         
         return all_questions
@@ -61,12 +66,14 @@ class TextExtractor:
             question_dict = {
                 'question_number': q.question_number,
                 'question_text': q.question_text,
+                'question_latex': getattr(q, 'question_latex', None),
                 'question_type': q.question_type,
                 'pdf_page': q.pdf_page,
                 'subparts': [
                     {
                         'subpart_number': sp.subpart_number,
                         'subpart_text': sp.subpart_text,
+                        'subpart_latex': getattr(sp, 'subpart_latex', None),
                         'question_type': sp.question_type
                     } for sp in q.subparts
                 ],
@@ -80,7 +87,9 @@ class TextExtractor:
                     {
                         'asset_type': asset.asset_type,
                         'asset_path': asset.asset_path,
-                        'page_number': asset.page_number
+                        'page_number': asset.page_number,
+                        'bbox': asset.bbox,
+                        'asset_description': asset.asset_description
                     } for asset in q.assets
                 ]
             }
@@ -222,9 +231,9 @@ class TextExtractor:
         return blocks
     
     def _create_question_object(self, text: str, question_number: str, page_num: int) -> Optional[Question]:
-        """Create Question object from text block"""
+        """Create Question object from text block (no normalization of question_number)."""
         print(f"Creating question object for {question_number} on page {page_num}")
-        
+
         question = Question()
         question.question_number = question_number
         question.pdf_page = page_num
@@ -232,41 +241,46 @@ class TextExtractor:
         question.mcq_options = []
         question.assets = []
         question.tables = []
-        
+
         # Extract main question text
         main_text, remaining_text = self._extract_main_question_text(text)
         question.question_text = main_text
-        
+
         print(f"Main text: {repr(main_text)}")
         print(f"Remaining text for subparts: {repr(remaining_text)}")
-        
-        # Handle LaTeX
-        if self._detect_latex(main_text):
-            question.question_latex = self._render_latex(main_text)
+
+
+        # Always extract subparts first
+        subparts = self._extract_subparts(remaining_text)
+        for subpart in subparts:
+            if detect_latex(subpart.subpart_text):
+                subpart.subpart_latex = render_latex(subpart.subpart_text)
+            else:
+                subpart.subpart_latex = None
+            question.subparts.append(subpart)
+
+        # Handle LaTeX for main question
+        if detect_latex(main_text):
+            question.question_latex = render_latex(main_text)
             question.question_display = "latex"
         else:
             question.question_display = "text"
             question.question_latex = None
-        
-        # Extract subparts
-        subparts = self._extract_subparts(remaining_text)
-        for subpart in subparts:
-            question.subparts.append(subpart)
-        
+
         print(f"Question {question_number}: Found {len(subparts)} subparts")
-        
+
         # Extract MCQ options
         mcq_options = self._extract_mcq_options(remaining_text)
         for option in mcq_options:
             question.mcq_options.append(option)
-        
+
         # Set flags
         question.subpart_flag = "Yes" if question.subparts else "No"
         question.mcq_flag = "Yes" if question.mcq_options else "No"
-        
+
         # Classify question type
         question.question_type = self._classify_question_type(text)
-        
+
         return question
     
     def _extract_main_question_text(self, text: str) -> Tuple[str, str]:
@@ -335,14 +349,10 @@ class TextExtractor:
         for i, sp in enumerate(subparts):
             print(f"  Subpart {i+1}: {sp.subpart_number} - '{sp.subpart_text}'")
         
-        # Process LaTeX and question types
-        for subpart in subparts:
-            if self._detect_latex(subpart.subpart_text):
-                subpart.subpart_latex = self._render_latex(subpart.subpart_text)
-            else:
-                subpart.subpart_latex = None
             
-            subpart.question_type = self._classify_question_type(subpart.subpart_text)
+            # Process question types only (LaTeX handled in _create_question_object)
+            for subpart in subparts:
+                subpart.question_type = self._classify_question_type(subpart.subpart_text)
         
         return subparts
     
@@ -362,34 +372,7 @@ class TextExtractor:
         
         return options
     
-    def _detect_latex(self, text: str) -> bool:
-        """Detect LaTeX patterns in text"""
-        latex_patterns = [
-            r"∑", r"∞", r"lim", r"\\frac", r"\\sum", r"\\int", r"\\lim", r"\\sqrt",
-            r"\\left", r"\\right", r"\\begin{.*?}", r"\\end{.*?}", r"\\[a-zA-Z]+"
-        ]
-        
-        for pattern in latex_patterns:
-            if re.search(pattern, text):
-                return True
-        return False
-    
-    def _render_latex(self, text: str) -> str:
-        """Convert unicode math symbols to LaTeX"""
-        latex_text = text
-        replacements = {
-            "∑": "\\sum",
-            "∞": "\\infty", 
-            "→": "\\to",
-            "𝑛": "n", "𝑘": "k", "𝑗": "j", "𝑚": "m", "𝑡": "t",
-            "𝐴": "A", "𝑆": "S", "𝑃": "P", "𝐶": "C",
-            "𝑙𝑖𝑚": "\\lim"
-        }
-        
-        for unicode_char, latex_equiv in replacements.items():
-            latex_text = latex_text.replace(unicode_char, latex_equiv)
-        
-        return latex_text
+
     
     def _classify_question_type(self, text: str) -> str:
         """Classify question type: evaluate|mcq|short_answer|misc"""
@@ -409,59 +392,22 @@ class TextExtractor:
         
         return 'misc'
     
-    def _extract_images(self) -> List[Dict]:
-        """Extract images from PDF and save them to assets directory"""
-        images = []
-        
-        for page_num in range(len(self.doc)):
-            page = self.doc[page_num]
-            
-            for img_index, img in enumerate(page.get_images(full=True)):
-                xref = img[0]
-                base_image = self.doc.extract_image(xref)
-                image_bytes = base_image["image"]
-                image_ext = base_image["ext"]
-                image_filename = f"page{page_num+1}_img{img_index+1}.{image_ext}"
-                image_path = self.output_manager.images_dir / image_filename
-                
-                # Save image to assets directory
-                with open(image_path, "wb") as f:
-                    f.write(image_bytes)
-                
-                print(f"Saved image: {image_path}")
-                
-                images.append({
-                    'path': str(image_path),
-                    'filename': image_filename,
-                    'page_number': page_num + 1,
-                    'index': img_index
-                })
-        
-        return images
     
-    def _link_images_sequentially(self, questions: List[Question], images: List[Dict]):
-        """Link images to questions in sequential order (simple approach)"""
-        # Group images by page
-        images_by_page = {}
-        for img in images:
-            page = img['page_number']
-            if page not in images_by_page:
-                images_by_page[page] = []
-            images_by_page[page].append(img)
-        
-        # Link images to questions on same page
-        for question in questions:
-            page_images = images_by_page.get(question.pdf_page, [])
-            
-            for img in page_images:
-                asset = Asset()
-                asset.asset_type = "image"
-                asset.asset_path = img['path']
-                asset.asset_description = None
-                asset.bbox = {'x': 0, 'y': 0, 'width': 0, 'height': 0}  # Simple approach - no coordinates
-                asset.page_number = img['page_number']
-                
-                question.assets.append(asset)
+    def _extract_and_save_images(self) -> List[Dict]:
+        """Extract images from PDF and save them to designated directory"""
+        extract_images_with_metadata(
+            pdf_path=self.pdf_path,
+            output_dir=str(self.output_manager.images_dir),
+            output_json_path=str(self.output_manager.images_dir / "extraction_results.json")
+        )
+
+
+    def _link_images_using_coordinate_mapper(self, questions: List[Question]):
+        map_images_to_questions_for_pdf(
+            pdf_path=self.pdf_path,
+            extracted_images_path=str(self.output_manager.images_dir / "extraction_results.json"),
+            output_path=str(self.output_manager.images_dir / "image_question_mappings.json"),
+        )
     
     def _extract_tables(self) -> List[Dict]:
         """Extract tables from PDF using pdfplumber and save to assets directory"""
@@ -598,3 +544,80 @@ class TextExtractor:
         """Extract numeric part from question number string"""
         match = re.search(r'(\d+)', question_number_str)
         return int(match.group(1)) if match else 0
+
+    
+    def _merge_results(self, all_questions: List[Question], image_question_mappings_path: str) -> List[Question]:
+        """
+        Update each Question object's assets field using image-question mappings and return updated list.
+        Uses containment-based matching: TextExtractor question_number should be contained within
+        CoordinateImageMapper question_number (which is the full line text).
+        """
+        import json
+        if not all_questions or not image_question_mappings_path:
+            return all_questions
+
+        # Load image-question mappings
+        try:
+            with open(image_question_mappings_path, 'r') as f:
+                mapping_json = json.load(f)
+        except Exception as e:
+            print(f"Could not load image-question mappings: {e}")
+            return all_questions
+
+        print(f"MERGE RESULTS - Processing {len(all_questions)} questions with {len(mapping_json.get('mappings', []))} image mappings")
+
+        # Update each Question object's assets using containment-based matching
+        for q in all_questions:
+            page = getattr(q, 'pdf_page', None)
+            text_extractor_qnum = str(getattr(q, 'question_number', None))
+            
+            print(f"MERGE - Looking for matches for Question '{text_extractor_qnum}' on page {page}")
+            
+            # Find matching images for this question using containment logic
+            matching_images = []
+            for mapping in mapping_json.get('mappings', []):
+                image_mapper_qnum = str(mapping['question']['question_number'])
+                mapping_page = mapping['question']['page']
+                
+                # Check if text extractor question is contained in image mapper question
+                # and they're on the same page
+                if (mapping_page == page and 
+                    text_extractor_qnum.strip() in image_mapper_qnum.strip()):
+                    
+                    matching_images.append(mapping['image'])
+                    print(f"  MATCH FOUND: '{text_extractor_qnum}' contained in '{image_mapper_qnum}'")
+                    print(f"    Image: {mapping['image']['filename']}")
+            
+            # Convert matching images to Asset objects
+            assets = []
+            for img in matching_images:
+                # Asset expects: asset_type, asset_path, asset_description, bbox, page_number
+                asset = Asset()
+                asset.asset_type = 'image'
+                asset.asset_path = img.get('filepath')
+                asset.asset_description = f"Image mapped to question {text_extractor_qnum}"
+                
+                # Use coordinates as bbox if available, else fallback to x0/y0/x1/y1
+                if 'coordinates' in img:
+                    coords = img['coordinates']
+                    asset.bbox = {
+                        'x0': coords.get('x0', 0),
+                        'y0': coords.get('y0', 0),
+                        'x1': coords.get('x1', 0),
+                        'y1': coords.get('y1', 0),
+                        'center_x': coords.get('center_x', 0),
+                        'center_y': coords.get('center_y', 0)
+                    }
+                else:
+                    asset.bbox = {
+                        'x0': 0, 'y0': 0, 'x1': img.get('width', 0), 'y1': img.get('height', 0),
+                        'center_x': img.get('width', 0) / 2, 'center_y': img.get('height', 0) / 2
+                    }
+                asset.page_number = img.get('page')
+                assets.append(asset)
+            
+            q.assets = assets
+            print(f"  FINAL: Question '{text_extractor_qnum}' assigned {len(assets)} images")
+        
+        print(f"MERGE RESULTS - Completed merging for all questions")
+        return all_questions
