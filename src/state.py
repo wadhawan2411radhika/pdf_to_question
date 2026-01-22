@@ -1,4 +1,3 @@
-
 from typing import List
 
 class DocumentMetadata:
@@ -49,7 +48,6 @@ class Question:
     question_type: str
     question_text: str
     question_latex: str | None
-    question_display: str
     pdf_page: int
     subpart_flag: bool
     mcq_flag: bool
