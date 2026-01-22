@@ -26,7 +26,11 @@ class TableVisionExtractor:
     def __init__(self, pdf_path: str, output_dir: str = "output"):
         self.pdf_path = pdf_path
         self.pdf_name = os.path.basename(pdf_path)
-        self.llm_service = LLMService()
+        try: 
+            self.llm_service = LLMService()
+        except Exception as e:
+            logger.error(f"Failed to initialise LLM Service: {e}")
+            self.llm_service = None
         self.output_manager = OutputManager(base_output_dir=output_dir, pdf_name=self.pdf_name)
         
         logger.info(f"TableVisionExtractor initialized for {pdf_path}")
@@ -49,26 +53,30 @@ class TableVisionExtractor:
         logger.info(f"Found {image_results['total_images']} images, created {image_results['total_mappings']} mappings")
         
         # Step 3: Analyze images with LLM
-        logger.info("Step 3: Starting LLM vision analysis")
         vision_analysis = {}
-        for i, mapping in enumerate(image_results['mappings']):
-            image_path = mapping['image']['file_path']
-            if os.path.exists(image_path):
-                try:
-                    logger.debug(f"Analyzing image {i+1}/{len(image_results['mappings'])}: {image_path}")
-                    result = self.llm_service.analyze_image(image_path)
-                    vision_analysis[image_path] = {
-                        'question_text': result.question_text,
-                        'mcq_options': result.mcq_options,
-                        'has_diagram': result.has_diagram,
-                    }
-                    logger.debug(f"Vision analysis completed for {image_path}")
-                except Exception as e:
-                    logger.error(f"Vision analysis error for {image_path}: {e}")
-            else:
-                logger.warning(f"Image file not found: {image_path}")
-        
-        logger.info(f"Completed vision analysis for {len(vision_analysis)} images")
+        if self.llm_service:
+            logger.info("Step 3: Starting LLM vision analysis")
+            
+            for i, mapping in enumerate(image_results['mappings']):
+                image_path = mapping['image']['file_path']
+                if os.path.exists(image_path):
+                    try:
+                        logger.debug(f"Analyzing image {i+1}/{len(image_results['mappings'])}: {image_path}")
+                        result = self.llm_service.analyze_image(image_path)
+                        vision_analysis[image_path] = {
+                            'question_text': result.question_text,
+                            'mcq_options': result.mcq_options,
+                            'has_diagram': result.has_diagram,
+                        }
+                        logger.debug(f"Vision analysis completed for {image_path}")
+                    except Exception as e:
+                        logger.error(f"Vision analysis error for {image_path}: {e}")
+                else:
+                    logger.warning(f"Image file not found: {image_path}")
+            
+            logger.info(f"Completed vision analysis for {len(vision_analysis)} images")
+        else:
+            logger.warning("LLM Service is not available. Skipping the vision analysis for images")
         
         # Step 4: Combine everything
         logger.info("Step 4: Combining results and creating merged state")
