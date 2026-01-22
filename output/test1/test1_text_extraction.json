@@ -1,0 +1,260 @@
+{
+  "document_metadata": {
+    "pdf_name": "test1.pdf",
+    "pdf_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/data/dev/test1.pdf",
+    "total_pages": 8,
+    "processing_timestamp": "2026-01-22T20:40:43.596266",
+    "processing_time_seconds": 0.0,
+    "dominance_type": "text-dominant",
+    "extraction_method": "TextExtractor"
+  },
+  "questions": [
+    {
+      "question_number": "1.",
+      "question_text": "1. Short answer",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "If for some arithmetic sequence \ud835\udc343 = 7 and \ud835\udc344 = 4, find \ud835\udc3411.",
+          "subpart_latex": "If for some arithmetic sequence A3 = 7 and A4 = 4, find A11.",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "Again, if for some arithmetic sequence \ud835\udc343 = 7 and \ud835\udc344 = 4, evaluate \u2211 \ud835\udc34\ud835\udc58 25 \ud835\udc58=0",
+          "subpart_latex": "Again, if for some arithmetic sequence A3 = 7 and A4 = 4, evaluate \\sum Ak 25 k=0",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "c.",
+          "subpart_text": "Write the following sum in sigma notation: 2 7 \u2212 4 8 + 6 9 \u2212 8 10 +\u2004\u2004\u2026\u2004\u2004+ 22 17",
+          "subpart_latex": "Write the following sum in sigma notation: 2 7 - 4 8 + 6 9 - 8 10 +\\quad\\quad\\ldots\\quad\\quad+ 22 17",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "d.",
+          "subpart_text": "Find the term at position 0 of a geometric sequence whose 2nd term is 3 and whose 6th term is 75.",
+          "subpart_latex": null,
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "e.",
+          "subpart_text": "Find a rule that defines the sequence below. The rule must be an equation, but it may be in any form \u2013 recursive, explicit or \u201cmixed\u201d. {\u2004\u22128, \u22125, 1, 10, 22, . . . }",
+          "subpart_latex": "Find a rule that defines the sequence below. The rule must be an equation, but it may be in any form - recursive, explicit or \u201cmixed\u201d. {\\quad-8, -5, 1, 10, 22, . . . }",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "f.",
+          "subpart_text": "Recall that the partial sums of some sequence t are given by \ud835\udc46\ud835\udc5b= \u2211 \ud835\udc61\ud835\udc58 \ud835\udc5b \ud835\udc58=1 . If the first few partial sums of some sequence are \ud835\udc461 = 5, \ud835\udc462 = 20, \ud835\udc463 = 30, \ud835\udc464 = 36, what is the value of \ud835\udc613? If you can\u2019t find this value, explain why not.",
+          "subpart_latex": "Recall that the partial sums of some sequence t are given by Sn= \\sum tk n k=1 . If the first few partial sums of some sequence are S1 = 5, S2 = 20, S3 = 30, S4 = 36, what is the value of t3? If you can\u2019t find this value, explain why not.",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "2.",
+      "question_text": "2. Evaluate the following series:",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 4,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "\u2211 (2(\ud835\udc58+ 1)2 + 3 ( 4 3) \ud835\udc58 ) 17 \ud835\udc58=3 =",
+          "subpart_latex": "\\sum (2(k+ 1)2 + 3 ( 4 3) k ) 17 k=3 =",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "[\u2211 (\ud835\udc575 \u22127\ud835\udc57) 15 \ud835\udc57=1 ] \u2212[\u2211 (\ud835\udc5a5 \u22129) 15 \ud835\udc5a=1 ] =",
+          "subpart_latex": "[\\sum (j5 -7j) 15 j=1 ] -[\\sum (m5 -9) 15 m=1 ] =",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "c.",
+          "subpart_text": "\u2211 (\u2211 (\ud835\udc5a+ \ud835\udc58 \ud835\udc58+4 \ud835\udc5a=\ud835\udc58+1 )) 3 \ud835\udc58=1",
+          "subpart_latex": "\\sum (\\sum (m+ k k+4 m=k+1 )) 3 k=1",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "3.",
+      "question_text": "3. The Cantor Set. The Cantor middle-thirds set is obtained by starting with the closed interval\n[0,1] and deleting the open middle third interval (\n1\n3 ,\n2\n3) . This produces two closed intervals,\nso we can then remove the middle third of each of these, and so on. Let C0 be the original\ninterval [0,1], C1 the set obtained after one iteration (consisting of two closed intervals), and\nso on. The first few iterations are shown below:",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 5,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "How many segments does Cn consist of?",
+          "subpart_latex": null,
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "What is the length of each segment in Cn?",
+          "subpart_latex": null,
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "c.",
+          "subpart_text": "What is the total length of Cn?",
+          "subpart_latex": null,
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "d.",
+          "subpart_text": "Find the total length of the intervals removed to obtain Cn.",
+          "subpart_latex": null,
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "e.",
+          "subpart_text": "If we iterate this process forever (in other words, let \ud835\udc5b\u2192\u221e), will there be anything left? Discuss.",
+          "subpart_latex": "If we iterate this process forever (in other words, let n\\to\\infty), will there be anything left? Discuss.",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": [
+        {
+          "asset_type": "image",
+          "asset_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/output/test1/assets/page5_img1.png",
+          "asset_description": "Image mapped to question 3.",
+          "bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 729,
+            "y1": 118,
+            "center_x": 364.5,
+            "center_y": 59.0
+          },
+          "page_number": 5
+        }
+      ]
+    },
+    {
+      "question_number": "4.",
+      "question_text": "4. More snowflakes\nThe diagrams below show the first 3 stages of another \u201csnowflake\u201d that was inspired by the\nKoch snowflake. To make the stage \ud835\udc5b+ 1 snowflake, you take the stage n snowflake and\nadd a new square to the left-most, right-most, top-most and bottom-most sides. The new\nsquares are centered on the old sides and have a side length that is 1/3 the length of the side\nthey are added to. Assume the side length of the first snowflake (\ud835\udc5b= 1) is one unit.",
+      "question_latex": "4. More snowflakes\nThe diagrams below show the first 3 stages of another \u201csnowflake\u201d that was inspired by the\nKoch snowflake. To make the stage n+ 1 snowflake, you take the stage n snowflake and\nadd a new square to the left-most, right-most, top-most and bottom-most sides. The new\nsquares are centered on the old sides and have a side length that is 1/3 the length of the side\nthey are added to. Assume the side length of the first snowflake (n= 1) is one unit.",
+      "question_type": "evaluate",
+      "pdf_page": 6,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "If \ud835\udc34\ud835\udc5b denotes the area of the stage n snowflake, analyze \ud835\udc59\ud835\udc56\ud835\udc5a \ud835\udc5b\u2192\u221e\ud835\udc34\ud835\udc5b. Be as precise as possible. If it diverges, how do you know? If it converges, what does it converge to? If you can\u2019t find a specific value, can you put upper and/or lower bounds on the value?",
+          "subpart_latex": "If An denotes the area of the stage n snowflake, analyze lim n\\to\\inftyAn. Be as precise as possible. If it diverges, how do you know? If it converges, what does it converge to? If you can\u2019t find a specific value, can you put upper and/or lower bounds on the value?",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "If \ud835\udc43\ud835\udc5b denotes the perimeter of the stage n snowflake, analyze \ud835\udc59\ud835\udc56\ud835\udc5a \ud835\udc5b\u2192\u221e\ud835\udc43\ud835\udc5b. Be as precise as possible. If it diverges, how do you know? If it converges, what does it converge to? If you can\u2019t find a specific value, can you put upper and/or lower bounds on the value?",
+          "subpart_latex": "If Pn denotes the perimeter of the stage n snowflake, analyze lim n\\to\\inftyPn. Be as precise as possible. If it diverges, how do you know? If it converges, what does it converge to? If you can\u2019t find a specific value, can you put upper and/or lower bounds on the value?",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": [
+        {
+          "asset_type": "image",
+          "asset_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/output/test1/assets/page6_img1.png",
+          "asset_description": "Image mapped to question 4.",
+          "bbox": {
+            "x0": 0,
+            "y0": 0,
+            "x1": 763,
+            "y1": 313,
+            "center_x": 381.5,
+            "center_y": 156.5
+          },
+          "page_number": 6
+        }
+      ]
+    },
+    {
+      "question_number": "5.",
+      "question_text": "5. Evaluating Series",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 8,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "Evaluate the series 36 + 64 + 100 + 144 +\u2004\u2004\u2026\u2004\u2004+ 10,000",
+          "subpart_latex": "Evaluate the series 36 + 64 + 100 + 144 +\\quad\\quad\\ldots\\quad\\quad+ 10,000",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "Evaluate \u2211 \u2211 ( 1 2) \u221e \ud835\udc58=1 \u221e \ud835\udc57=2 \ud835\udc57 ( 1 3) \ud835\udc58 . If you rewrite this as a different, equivalent sigma expression, you must justify your reformulation.",
+          "subpart_latex": "Evaluate \\sum \\sum ( 1 2) \\infty k=1 \\infty j=2 j ( 1 3) k . If you rewrite this as a different, equivalent sigma expression, you must justify your reformulation.",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": []
+    }
+  ],
+  "extraction_stats": {
+    "total_questions": 5,
+    "mcq_count": 0,
+    "subpart_count": 18,
+    "images_extracted": 2,
+    "tables_extracted": 0,
+    "processing_errors": []
+  }
+}
