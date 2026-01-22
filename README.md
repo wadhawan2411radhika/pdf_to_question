@@ -16,15 +16,15 @@ A robust PDF processing pipeline that extracts **questions** from academic PDFs 
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.10+
 - Virtual environment (recommended)
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd pdf_ingestion
+git clone https://github.com/wadhawan2411radhika/pdf_to_question.git
+cd pdf_to_ingestion
 ```
 
 2. Create and activate virtual environment:

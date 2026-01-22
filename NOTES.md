@@ -16,7 +16,7 @@ This heterogeneity necessitated the implementation of specialized extraction pip
 ## Technical Implementation Framework
 
 ### 1. Document Classification & Pipeline Selection
-Implemented heuristic-based classification using table density analysis. Documents with >60% tabular content are routed to the TableVisionExtractor pipeline, while text-dominant documents utilize the TextExtractor pipeline. This approach demonstrated effective performance across the development dataset.
+Implemented heuristic-based classification using table density analysis. Documents with >50% tabular content are routed to the TableVisionExtractor pipeline, while text-dominant documents utilize the TextExtractor pipeline. This approach demonstrated effective performance across the development dataset.
 
 ### 2. Question Detection Methodology
 Developed pattern-based question identification using optimized regular expressions:
