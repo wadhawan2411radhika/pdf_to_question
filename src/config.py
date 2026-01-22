@@ -15,8 +15,10 @@ class Config:
     LITELLM_API_URL: str = os.getenv("LITELLM_API_URL")
     LITELLM_API_KEY: str = os.getenv("LITELLM_API_KEY")
     LITELLM_MODEL: str = os.getenv("LITELLM_MODEL")
-    
-    
+
+    # PDF Processing Configuration
+    MAX_PARALLEL_PDFS: int = os.getenv("MAX_PARALLEL_PDFS", 5)
+
     # Logging Configuration
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
     LOG_FORMAT: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
