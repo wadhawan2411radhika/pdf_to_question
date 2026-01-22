@@ -6,8 +6,8 @@
 set -e
 
 if [ $# -lt 2 ]; then
-    echo "Usage: bash run_eval.sh pdfs/*.pdf outputs/"
-    echo "Example: bash run_eval.sh data/dev/*.pdf output_batch/"
+    echo "Usage: bash run_eval.sh pdfs/*.pdf output/"
+    echo "Example: bash run_eval.sh data/dev/*.pdf output/"
     exit 1
 fi
 
@@ -49,26 +49,30 @@ RESULTS_DIR=$(mktemp -d)
 # Submit all requests in parallel
 for i in "${!PDF_FILES[@]}"; do
     pdf="${PDF_FILES[$i]}"
-    abs_path=$(realpath "$pdf")
+    abs_path=$(realpath "$pdf" 2>/dev/null || echo "$pdf")
     
     {
         echo "Processing: $(basename "$pdf")"
         PDF_START_TIME=$(date +%s.%N)
         
-        RESPONSE=$(curl -s -X POST "http://localhost:8000/extract" \
+        RESPONSE=$(curl -s -w "HTTPSTATUS:%{http_code}" -X POST "http://localhost:8000/extract" \
             -H "Content-Type: application/json" \
-            -d "{\"pdf_path\": \"$abs_path\"}")
+            -d "{\"pdf_path\": \"$abs_path\", \"output_dir\": \"$OUTPUT_DIR\"}")
         
         PDF_END_TIME=$(date +%s.%N)
         PDF_DURATION=$(echo "$PDF_END_TIME - $PDF_START_TIME" | bc)
         
-        if echo "$RESPONSE" | jq -e '.status == "ok"' > /dev/null 2>&1; then
-            OUTPUT_PATH=$(echo "$RESPONSE" | jq -r '.output_json_path')
-            ASSETS_DIR=$(echo "$RESPONSE" | jq -r '.assets_dir')
+        # Split response and HTTP status
+        HTTP_BODY=$(echo "$RESPONSE" | sed -E 's/HTTPSTATUS:[0-9]{3}$//')
+        HTTP_STATUS=$(echo "$RESPONSE" | grep -o -E 'HTTPSTATUS:[0-9]{3}$' | cut -d: -f2)
+        
+        if [[ "$HTTP_STATUS" == "200" ]] && echo "$HTTP_BODY" | jq -e '.status == "ok"' > /dev/null 2>&1; then
+            OUTPUT_PATH=$(echo "$HTTP_BODY" | jq -r '.output_json_path')
+            ASSETS_DIR=$(echo "$HTTP_BODY" | jq -r '.assets_dir')
             echo "SUCCESS:$(basename "$pdf"):$OUTPUT_PATH:$ASSETS_DIR:$PDF_DURATION" > "$RESULTS_DIR/result_$i"
         else
-            ERROR=$(echo "$RESPONSE" | jq -r '.detail // "Unknown error"')
-            echo "ERROR:$(basename "$pdf"):$ERROR:$PDF_DURATION" > "$RESULTS_DIR/result_$i"
+            ERROR=$(echo "$HTTP_BODY" | jq -r '.detail // "Unknown error"')
+            echo "ERROR:$(basename "$pdf"):HTTP $HTTP_STATUS - $ERROR:$PDF_DURATION" > "$RESULTS_DIR/result_$i"
         fi
     } &
     
@@ -102,14 +106,16 @@ for i in "${!PDF_FILES[@]}"; do
             IFS=':' read -r status filename output_path assets_dir duration <<< "$RESULT"
             # Format duration to 2 decimal places
             formatted_duration=$(printf "%.2f" "$duration" 2>/dev/null || echo "$duration")
-            echo "  ✓ $filename -> $output_path (${formatted_duration}s)"
+            echo "  ✓ $filename -> $output_path"
+            echo "    Processing time: ${formatted_duration}s"
             ((SUCCESS_COUNT++))
         else
             IFS=':' read -r status filename error duration <<< "$RESULT"
             # Format duration to 2 decimal places, handle cases where duration might be missing
             if [[ -n "$duration" ]]; then
                 formatted_duration=$(printf "%.2f" "$duration" 2>/dev/null || echo "$duration")
-                echo "  ✗ $filename: $error (${formatted_duration}s)"
+                echo "  ✗ $filename: $error"
+                echo "    Processing time: ${formatted_duration}s"
             else
                 echo "  ✗ $filename: $error"
             fi
