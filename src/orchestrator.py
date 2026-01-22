@@ -5,8 +5,8 @@ import logging
 from typing import Dict, Any
 import pdfplumber
 from config import Config
-from text_extractor import TextExtractor
-from simple_enhanced_extractor import SimpleEnhancedExtractor
+from text_pipeline.text_extractor import TextExtractor
+from src.table_pipeline.table_vision_extractor import TableVisionExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -35,9 +35,10 @@ class Orchestrator:
             logger.info("PDF classified as free-text-dominant")
             return "free-text-dominant"
     
-    def process_pdf(self, pdf_path: str) -> Dict[str, Any]:
+    def process_pdf(self, pdf_path: str, output_dir: str = "output") -> Dict[str, Any]:
         """Process a PDF file and return results."""
         logger.info(f"Starting PDF processing: {pdf_path}")
+        logger.info(f"Output directory: {output_dir}")
         
         if not os.path.exists(pdf_path):
             logger.error(f"PDF file not found: {pdf_path}")
@@ -54,8 +55,8 @@ class Orchestrator:
         
         # Process based on dominance type
         if dominance == "table-dominant":
-            logger.info("Using SimpleEnhancedExtractor for table-dominant PDF")
-            extractor = SimpleEnhancedExtractor(pdf_path)
+            logger.info("Using TableVisionExtractor for table-dominant PDF")
+            extractor = TableVisionExtractor(pdf_path, output_dir=output_dir)
             extraction_results = extractor.extract_questions()
             
             logger.info(f"Table-dominant processing completed. Output: {extraction_results['output_paths']['merged_state']}")
@@ -67,7 +68,7 @@ class Orchestrator:
             
         else:
             logger.info("Using TextExtractor for text-focused PDF")
-            extractor = TextExtractor(pdf_path)
+            extractor = TextExtractor(pdf_path, output_dir=output_dir)
             questions = extractor.extract()
             
             logger.info(f"Text-focused processing completed. Output: {extractor.output_paths['merged_state']}")
