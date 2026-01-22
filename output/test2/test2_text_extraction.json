@@ -1,0 +1,327 @@
+{
+  "document_metadata": {
+    "pdf_name": "test2.pdf",
+    "pdf_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/data/dev/test2.pdf",
+    "total_pages": 3,
+    "processing_timestamp": "2026-01-22T20:40:43.486978",
+    "processing_time_seconds": 0.0,
+    "dominance_type": "text-dominant",
+    "extraction_method": "TextExtractor"
+  },
+  "questions": [
+    {
+      "question_number": "1.",
+      "question_text": "1.01 \u2013 1.05 Wrap-Up\n*Mild*",
+      "question_latex": "1.01 - 1.05 Wrap-Up\n*Mild*",
+      "question_type": "misc",
+      "pdf_page": 1,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 1",
+      "question_text": "Question 1\nEvaluate:\n\u22112\ud835\udc58\u22121\n2\ud835\udc58+ 1\n4\n\ud835\udc58=0",
+      "question_latex": "Question 1\nEvaluate:\n\\sum2k-1\n2k+ 1\n4\nk=0",
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 2",
+      "question_text": "Question 2\nEvaluate:\n\u22111\n3 (\u22121\n2)\n\ud835\udc58\n\u221e\n\ud835\udc58=2",
+      "question_latex": "Question 2\nEvaluate:\n\\sum1\n3 (-1\n2)\nk\n\\infty\nk=2",
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 3",
+      "question_text": "Question 3\nEvaluate:\n\u2211(1\n2 \ud835\udc58+ 6)\n582\n\ud835\udc58=9",
+      "question_latex": "Question 3\nEvaluate:\n\\sum(1\n2 k+ 6)\n582\nk=9",
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 4",
+      "question_text": "Question 4\nExpress the following in sigma notation and find the sum.\n7\ud835\udf0b+ 22\n3 \ud835\udf0b+ 23\n3 \ud835\udf0b+ 8\ud835\udf0b+ \u22ef+ 922\n3 \ud835\udf0b",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 5",
+      "question_text": "Question 5\nConsider the sequence, \ud835\udc83\ud835\udc8f , defined recursively as follows: \ud835\udc4f1 = 3, \ud835\udc4f2 = 2, and\n1\n2\nn\nn\nn\nb\nb\nb\n\u2212\n\u2212\n=",
+      "question_latex": "Question 5\nConsider the sequence, bn , defined recursively as follows: b1 = 3, b2 = 2, and\n1\n2\nn\nn\nn\nb\nb\nb\n-\n-\n=",
+      "question_type": "evaluate",
+      "pdf_page": 1,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "Complete the table below: \ud835\udc4f1 \ud835\udc4f2 \ud835\udc4f3 \ud835\udc4f4 \ud835\udc4f5 \ud835\udc4f6 \ud835\udc4f7 \ud835\udc4f8 \ud835\udc4f9 3 2 3 2",
+          "subpart_latex": "Complete the table below: b1 b2 b3 b4 b5 b6 b7 b8 b9 3 2 3 2",
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "Using your work from part (a), evaluate the series below. \u2211\ud835\udc83\ud835\udc8f \ud835\udfd5\ud835\udfd1 \ud835\udc8f=\ud835\udfd5 Honors Precalculus Name: ____________________________",
+          "subpart_latex": "Using your work from part (a), evaluate the series below. \\sumbn 73 n=7 Honors Precalculus Name: ____________________________",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": [
+        {
+          "asset_type": "table",
+          "asset_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/output/test2/assets/page1_table1.json",
+          "asset_description": "Table with 2 rows and 9 columns",
+          "bbox": {
+            "x": 53.903999999999996,
+            "y": 607.78001,
+            "width": 504.29199199999994,
+            "height": 40.680000000000064
+          },
+          "page_number": 1
+        }
+      ]
+    },
+    {
+      "question_number": "1.",
+      "question_text": "1.01 \u2013 1.05 Wrap-Up\n*Medium*",
+      "question_latex": "1.01 - 1.05 Wrap-Up\n*Medium*",
+      "question_type": "misc",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 1",
+      "question_text": "Question 1\nThe fifth term of an arithmetic sequence is \u2212\ud835\udfd0\ud835\udfd0 and the fiftieth term of the sequence is \ud835\udfcf\ud835\udfce\ud835\udfcf. Determine\nthe eightieth partial sum of this sequence.",
+      "question_latex": "Question 1\nThe fifth term of an arithmetic sequence is -22 and the fiftieth term of the sequence is 101. Determine\nthe eightieth partial sum of this sequence.",
+      "question_type": "evaluate",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 2",
+      "question_text": "Question 2\nThe third term of a geometric sequence is \ud835\udfd0 and the ninth term of the sequence is \ud835\udfd3\ud835\udfd2. Determine the\ntwentieth partial sum of this sequence.",
+      "question_latex": "Question 2\nThe third term of a geometric sequence is 2 and the ninth term of the sequence is 54. Determine the\ntwentieth partial sum of this sequence.",
+      "question_type": "evaluate",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 3",
+      "question_text": "Question 3\nAn architect designs a theater with 15 seats in the first row, 18 seats in the second row, 21 seats in the\nthird row, and so on. If the theater is to have a seating capacity of 870, how many rows must the\narchitect use in her design?",
+      "question_latex": null,
+      "question_type": "misc",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 4",
+      "question_text": "Question 4\nExpress the repeating decimal \ud835\udfce. \ud835\udfcf\ud835\udfd0\ud835\udfd1\ud835\udfcf\ud835\udfd0\ud835\udfd1\ud835\udfcf\ud835\udfd0\ud835\udfd1\ud835\udfcf\ud835\udfd0\ud835\udfd1\u2026 as a fraction by first writing it as the sum of an\ninfinite geometric series and then evaluating what it converges to.",
+      "question_latex": "Question 4\nExpress the repeating decimal 0. 123123123123\\ldots as a fraction by first writing it as the sum of an\ninfinite geometric series and then evaluating what it converges to.",
+      "question_type": "misc",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 5",
+      "question_text": "Question 5\nA sequence has the property that each number in the sequence is 2 more than twice the previous\nnumber. The first four numbers in the sequence add up to 202. What is the 5th number in this\nsequence?\nHonors Precalculus\nName: ____________________________",
+      "question_latex": null,
+      "question_type": "misc",
+      "pdf_page": 2,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": [
+        {
+          "asset_type": "table",
+          "asset_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/output/test2/assets/page1_table1.json",
+          "asset_description": "Table with 2 rows and 9 columns",
+          "bbox": {
+            "x": 53.903999999999996,
+            "y": 607.78001,
+            "width": 504.29199199999994,
+            "height": 40.680000000000064
+          },
+          "page_number": 1
+        }
+      ]
+    },
+    {
+      "question_number": "1.",
+      "question_text": "1.01 \u2013 1.05 Wrap-Up\n*Spicy*",
+      "question_latex": "1.01 - 1.05 Wrap-Up\n*Spicy*",
+      "question_type": "misc",
+      "pdf_page": 3,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 1",
+      "question_text": "Question 1\nThe sum of the first eight terms in an arithmetic sequence, \ud835\udc82\ud835\udc8f , is 28, and the sum of the first twelve\nterms in \ud835\udc82\ud835\udc8f is \u221230. Determine an explicit formula for the arithmetic sequence, \ud835\udc82\ud835\udc8f.",
+      "question_latex": "Question 1\nThe sum of the first eight terms in an arithmetic sequence, an , is 28, and the sum of the first twelve\nterms in an is -30. Determine an explicit formula for the arithmetic sequence, an.",
+      "question_type": "evaluate",
+      "pdf_page": 3,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 2",
+      "question_text": "Question 2\nThe sum of the first five terms in a geometric sequence, \ud835\udc88\ud835\udc8f , is 1210, and the value of its infinite\nseries is 1215. Determine an explicit formula for \ud835\udc88\ud835\udc8f.",
+      "question_latex": "Question 2\nThe sum of the first five terms in a geometric sequence, gn , is 1210, and the value of its infinite\nseries is 1215. Determine an explicit formula for gn.",
+      "question_type": "evaluate",
+      "pdf_page": 3,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 3",
+      "question_text": "Question 3\nThe 12th term of an arithmetic sequence, \ud835\udc4e12, is twice as large as the 4th term in the sequence, \ud835\udc4e4.",
+      "question_latex": "Question 3\nThe 12th term of an arithmetic sequence, a12, is twice as large as the 4th term in the sequence, a4.",
+      "question_type": "evaluate",
+      "pdf_page": 3,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "Given \ud835\udc4e14 = 27, find the value of \ud835\udc4e1.",
+          "subpart_latex": "Given a14 = 27, find the value of a1.",
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "Find the 20th partial sum of this sequence.",
+          "subpart_latex": null,
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 4",
+      "question_text": "Question 4\nThe 20th partial sum of an arithmetic sequence is 1070. The sum of its fifth term and its tenth term is 65.",
+      "question_latex": null,
+      "question_type": "evaluate",
+      "pdf_page": 3,
+      "subpart_flag": "Yes",
+      "mcq_flag": "No",
+      "subparts": [
+        {
+          "subpart_number": "a.",
+          "subpart_text": "Write an expression for the nth term of this sequence.",
+          "subpart_latex": null,
+          "question_type": "misc",
+          "assets": [],
+          "mcq_options": []
+        },
+        {
+          "subpart_number": "b.",
+          "subpart_text": "Find the 30th partial sum of this sequence.",
+          "subpart_latex": null,
+          "question_type": "evaluate",
+          "assets": [],
+          "mcq_options": []
+        }
+      ],
+      "mcq_options": [],
+      "assets": []
+    },
+    {
+      "question_number": "Question 5",
+      "question_text": "Question 5\nAn infinite geometric series has a sum of 2005. A new series, obtained by squaring each term of the\noriginal series, has 10 times the sum of the original series. What is the common ratio of the original\nseries?",
+      "question_latex": null,
+      "question_type": "misc",
+      "pdf_page": 3,
+      "subpart_flag": "No",
+      "mcq_flag": "No",
+      "subparts": [],
+      "mcq_options": [],
+      "assets": [
+        {
+          "asset_type": "table",
+          "asset_path": "/Users/radhika.wadhawan/Desktop/Projects/pdf_ingestion/output/test2/assets/page1_table1.json",
+          "asset_description": "Table with 2 rows and 9 columns",
+          "bbox": {
+            "x": 53.903999999999996,
+            "y": 607.78001,
+            "width": 504.29199199999994,
+            "height": 40.680000000000064
+          },
+          "page_number": 1
+        }
+      ]
+    }
+  ],
+  "extraction_stats": {
+    "total_questions": 18,
+    "mcq_count": 0,
+    "subpart_count": 6,
+    "images_extracted": 0,
+    "tables_extracted": 3,
+    "processing_errors": []
+  }
+}
