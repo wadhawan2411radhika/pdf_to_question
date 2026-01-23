@@ -59,7 +59,7 @@ Given development timeline constraints, implemented basic mathematical symbol re
 Implemented selective LLM utilization to balance accuracy with performance requirements:
 - **Scope:** Table pipeline image content extraction only
 - **Rationale:** Full-document LLM analysis would violate runtime constraints
-- **Implementation:** Vision model integration for tabular image content understanding
+- **Implementation:** Vision model integration for image content understanding
 
 ## Engineering Trade-off Analysis
 
@@ -89,7 +89,6 @@ Initial system configuration utilizing basic orchestrator pattern:
 ### Primary Enhancement: Advanced Asset Mapping
 **Implementation:** Coordinate-based spatial analysis with containment algorithms
 **Methodology:** Comparative analysis of distance-based, overlap-based, and containment-based approaches
-**Performance Improvement:** Approximately 40% accuracy enhancement in asset-question associations
 **Significance:** Critical for academic document comprehension and structural fidelity
 
 ## Current System Limitations
@@ -108,8 +107,7 @@ Initial system configuration utilizing basic orchestrator pattern:
 
 ### Edge Case Handling
 1. **Repetitive Content Filtering:** Header/footer detection algorithms required
-2. **Cross-Page Question Processing:** Enhanced boundary detection capabilities needed
-3. **Layout Adaptability:** Limited flexibility beyond established patterns
+2. **Layout Adaptability:** Limited flexibility beyond established patterns
 
 ## Development Roadmap
 
