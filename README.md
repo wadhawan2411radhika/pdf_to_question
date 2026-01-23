@@ -38,10 +38,19 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Set up environment variables (optional):
+4. Set up environment variables:
 ```bash
-# LLM API credentials for enhanced vision analysis (optional)
-export OPENAI_API_KEY="your-api-key"
+# Copy the example environment file
+cp env.example .env
+
+# Edit .env with your actual values
+# Required variables:
+# - LITELLM_API_KEY: Your LiteLLM API key for LLM processing
+# Optional variables:
+# - LITELLM_API_URL: LiteLLM service URL
+# - LITELLM_MODEL: Specific model to use
+# - MAX_PARALLEL_PDFS: Number of PDFs to process concurrently (default: 5)
+# - LOG_LEVEL: Logging level (default: INFO)
 ```
 
 ### Running the API
