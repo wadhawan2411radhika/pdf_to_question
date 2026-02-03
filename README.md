@@ -45,10 +45,10 @@ cp env.example .env
 
 # Edit .env with your actual values
 # Required variables:
-# - LITELLM_API_KEY: Your LiteLLM API key for LLM processing
+# - LLM_API_KEY: Your LLM API key for LLM processing
 # Optional variables:
-# - LITELLM_API_URL: LiteLLM service URL
-# - LITELLM_MODEL: Specific model to use
+# - LLM_API_URL: LiteLLM service URL
+# - LLM_MODEL: Specific model to use
 # - MAX_PARALLEL_PDFS: Number of PDFs to process concurrently (default: 5)
 # - LOG_LEVEL: Logging level (default: INFO)
 ```
