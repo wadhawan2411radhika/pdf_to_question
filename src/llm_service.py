@@ -26,9 +26,9 @@ class LLMService:
     
     def __init__(self):
         """Initialize with environment credentials"""
-        self.api_base = os.getenv("LITELLM_API_URL")
-        self.api_key = os.getenv("LITELLM_API_KEY")
-        self.model = os.getenv("LITELLM_MODEL")
+        self.api_base = os.getenv("LLM_API_URL")
+        self.api_key = os.getenv("LLM_API_KEY")
+        self.model = os.getenv("LLM_MODEL")
 
         self.client = openai.OpenAI(
             base_url=self.api_base,
